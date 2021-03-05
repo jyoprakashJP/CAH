@@ -1,0 +1,23 @@
+---
+execution:
+- concurrency: 10
+  hold-for: 60
+  ramp-up: 1s
+  scenario: JmeterPOC_2021.jmx
+  detect-plugins: true
+  plugins:
+  - jmeter.pack-listener
+ 
+
+reporting:
+- module: final-stats
+- module: console
+- module: passfail
+  criteria:
+  - failures of Google-Home2>15% for 20s, stop as failed
+  - p90 of Google-Home>200ms for 10s, stop as failed
+settings:
+  check-interval: 1s
+  default-executor: jmeter
+
+provisioning: local
